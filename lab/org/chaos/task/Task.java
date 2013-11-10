@@ -29,7 +29,7 @@ import org.powerbot.script.methods.MethodProvider;
  *     }
  * </code>
  *
- * It is not required by the Java compiler that the class:
+ * It is now required by the Java compiler that the class:
  * SomeClass have both of the "abstract" methods defined in
  * the abstract class Task.
  *

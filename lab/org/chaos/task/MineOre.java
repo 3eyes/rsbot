@@ -19,8 +19,17 @@ public class MineOre extends Task {
      * wish to mine, it can be found through debugging
      * with the RSBot client. Currently it only
      * contains the ID for copper ore at Varrock East mine.
+     *
+     * The reason this is a "private static final" is:
+     *
+     * private -> only accessible to methods within this class
+     * static  -> only initialized once (created in memory by the JVM only once)
+     * final   -> only assigned a value once, value does not change once assigned
+     *
+     * All of these things together create a Java "constant".
+     * By convention constants have fully capitalized names.
      */
-    private int oreId = -1;
+    private static final int ORE_ID = -1;
 
     public MineOre(MethodContext ctx) {
         super(ctx);
@@ -75,7 +84,15 @@ public class MineOre extends Task {
     @Override
     public boolean activate() {
         return hasSpace() && !isMining()
-                && !ctx.objects.select().id(oreId).isEmpty();
+                /*
+                 * The query is first cached here by using
+                 * select() on all objects with the id of
+                 * oreId - which is specified at the top of
+                 * of this class. Queries are an advanced topic
+                 * but for now just try to understand what
+                 * you can from it.
+                 */
+                && !ctx.objects.select().id(ORE_ID).isEmpty();
     }
 
     /**
@@ -85,9 +102,16 @@ public class MineOre extends Task {
     @Override
     public void execute() {
         /*
-         * The closest GameObject is first polled through
-         * a BasicNamedQuery. Queries are an advanced topic
-         * but for now just try to understand what you can from it.
+         * We first sort through our cached query with
+         * nearest() and then we poll for an Object with
+         * poll(). When trying to return an object from
+         * the query, you will always almost use poll()
+         * last.
+         *
+         * Note: If we we selected() again, the cached
+         * query would be released and replaced with the
+         * current one, taking advantage of this minimizes
+         * code and increases efficiency/speed.
          */
         GameObject rock = ctx.objects.nearest().poll();
         /*
