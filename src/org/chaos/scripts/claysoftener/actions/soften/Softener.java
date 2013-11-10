@@ -23,7 +23,8 @@ public class Softener extends Action<ClaySoftener> {
     public boolean call() {
         final GameObject water = ctx.objects.select().id(script.location().waterId()).nearest().poll();
         return script.methods().hasClay()
-                && water.isOnScreen() && script.location().distanceToEndTile(local) <= 2;
+                && water.isOnScreen();
+                //&& script.location().distanceToEndTile(local) <= 2;
     }
 
     @Override

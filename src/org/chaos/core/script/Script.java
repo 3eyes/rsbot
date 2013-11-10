@@ -2,6 +2,7 @@ package org.chaos.core.script;
 
 import org.chaos.core.Reactor;
 import org.chaos.core.action.Action;
+import org.chaos.core.action.ActionSet;
 import org.chaos.core.script.method.Context;
 import org.powerbot.script.PollingScript;
 import org.powerbot.script.methods.MethodContext;
@@ -16,7 +17,7 @@ import java.util.logging.Level;
  */
 public abstract class Script<T extends Script<T>> extends PollingScript {
 
-    protected final Reactor<T> reactor;
+    protected final Reactor reactor;
     protected final BlockingQueue<Action<T>> chain;
     protected final Context ctx;
 
@@ -24,7 +25,7 @@ public abstract class Script<T extends Script<T>> extends PollingScript {
 
     public Script() {
         this.ctx = new Context(super.ctx);
-        reactor = new Reactor<T>(this);
+        reactor = new Reactor(this);
         chain = new PriorityBlockingQueue<Action<T>>();
     }
 

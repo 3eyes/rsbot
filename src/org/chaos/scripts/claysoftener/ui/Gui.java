@@ -106,7 +106,7 @@ public class Gui extends JFrame implements Runnable {
         contentPane.add(titleLabel, CC.xy(3, 1));
 
         //---- versionLabel ----
-        versionLabel.setText("v0.1a");
+        versionLabel.setText("v0.13");
         versionLabel.setFont(new Font("Consolas", Font.BOLD, 14));
         contentPane.add(versionLabel, CC.xy(5, 1));
 

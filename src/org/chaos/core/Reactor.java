@@ -1,6 +1,7 @@
 package org.chaos.core;
 
 import org.chaos.core.job.Job;
+import org.chaos.core.job.ScriptJob;
 import org.chaos.core.script.Script;
 
 import java.util.Collections;
@@ -14,11 +15,11 @@ import java.util.logging.Logger;
  * @author chaos_
  * @since 1.0 <8:07 PM - 31/10/13>
  */
-public class Reactor<T extends Script<T>> implements Runnable {
+public class Reactor implements Runnable {
 
     private final ExecutorService exec;
 
-    private final Deque<Job<T>> deque;
+    private final Deque<Job> deque;
 
     private final Deque<Future<?>> futures;
 
@@ -26,7 +27,7 @@ public class Reactor<T extends Script<T>> implements Runnable {
 
     public Reactor(Script script) {
         exec = Executors.newCachedThreadPool();
-        deque = new LinkedBlockingDeque<Job<T>>();
+        deque = new LinkedBlockingDeque<Job>();
         futures = new LinkedList<Future<?>>();
         log = script.log;
     }
@@ -49,8 +50,13 @@ public class Reactor<T extends Script<T>> implements Runnable {
     }
 
     private void execute() throws Exception {
-        for (Job<T> j : deque) {
-            if (j.condition()) {
+        for (Job j : deque) {
+            if (j instanceof ScriptJob) {
+                if (((ScriptJob)j).condition()) {
+                    Future<?> f = exec.submit(j);
+                    futures.add(f);
+                }
+            } else {
                 Future<?> f = exec.submit(j);
                 futures.add(f);
             }
@@ -73,7 +79,7 @@ public class Reactor<T extends Script<T>> implements Runnable {
         return exec;
     }
 
-    public boolean submit(Job<T>... jobs) {
+    public boolean submit(Job... jobs) {
         return Collections.addAll(deque, jobs);
     }
 

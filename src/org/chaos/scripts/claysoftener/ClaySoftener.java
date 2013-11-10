@@ -19,9 +19,9 @@ import java.util.concurrent.Executors;
  */
 @Manifest(
     authors = "_chaos",
-    name = "ClaySoftener",
-    description = "",
-    version = 0.1
+    name = "E3ClaySoftener",
+    description = "Softens clay for easy F2P money making.",
+    version = 0.13
 )
 public class ClaySoftener extends Script<ClaySoftener> {
 

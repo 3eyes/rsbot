@@ -17,7 +17,8 @@ public class ToSpot extends Traverse<ClaySoftener> {
     @Override
     public boolean call() {
         final GameObject fountain = ctx.objects.select().id(script.location().waterId()).nearest().poll();
-        return script.methods().hasClay() && (script.location().distanceToEndTile(local) >= 2 || !fountain.isOnScreen());
+        return script.methods().hasClay() && !fountain.isOnScreen();
+                //&& (script.location().distanceToEndTile(local) >= 2 || !fountain.isOnScreen());
     }
 
     @Override
