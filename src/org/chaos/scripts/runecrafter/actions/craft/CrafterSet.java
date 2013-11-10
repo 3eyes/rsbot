@@ -2,6 +2,7 @@ package org.chaos.scripts.runecrafter.actions.craft;
 
 import org.chaos.core.action.ActionSet;
 import org.chaos.scripts.runecrafter.Runecrafter;
+import org.powerbot.script.wrappers.GameObject;
 
 /**
  * @author chaos_
@@ -20,7 +21,10 @@ public class CrafterSet extends ActionSet<Runecrafter> {
 
     @Override
     public boolean call() {
-        return false;
+        final GameObject ruins = script.methods().getRuins();
+        final GameObject altar = script.methods().getAltar();
+        return script.methods().canCraft() && (ruins.isOnScreen() || altar.isOnScreen())
+            || !script.methods().canCraft() && altar.isOnScreen();
     }
 
 }

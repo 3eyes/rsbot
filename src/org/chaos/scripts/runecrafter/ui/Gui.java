@@ -14,6 +14,7 @@ public class Gui extends JFrame {
     private boolean start = false;
 
     public Gui() {
+        super("RuneScape");
         initComponents();
         setVisible(true);
     }

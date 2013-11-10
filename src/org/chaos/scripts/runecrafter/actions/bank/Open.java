@@ -20,7 +20,12 @@ public class Open extends Action<Runecrafter> {
 
     @Override
     public boolean execute() {
+        script.setStatus("Opening bank.");
         return ctx.bank.open();
+    }
+
+    public int delay() {
+        return 600;
     }
 
 }

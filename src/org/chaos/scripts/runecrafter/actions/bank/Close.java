@@ -15,11 +15,13 @@ public class Close extends Action<Runecrafter> {
 
     @Override
     public boolean call() {
-        return ctx.bank.isOpen() && script.methods().canCraft();
+        return ctx.bank.isOpen() && script.methods().canCraft()
+                && !script.methods().hasRunes();
     }
 
     @Override
     public boolean execute() {
+        script.setStatus("Closing bank.");
         return ctx.bank.close();
     }
 

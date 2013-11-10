@@ -24,4 +24,10 @@ public class ToBank extends Traverse<Runecrafter> {
                 && !ctx.bank.isOnScreen();
     }
 
+    @Override
+    public boolean execute() {
+        script.setStatus("Walking to bank.");
+        return super.execute();
+    }
+
 }

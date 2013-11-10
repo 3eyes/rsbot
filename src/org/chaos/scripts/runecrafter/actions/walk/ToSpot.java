@@ -19,7 +19,13 @@ public class ToSpot extends Traverse<Runecrafter> {
         final GameObject ruins = script.methods().getRuins();
         final GameObject portal = script.methods().getPortal();
         return script.methods().canCraft() && !ruins.isOnScreen()
-                && !portal.isValid();
+                && !portal.isValid() && !script.methods().hasRunes();
+    }
+
+    @Override
+    public boolean execute() {
+        script.setStatus("Walking to altar.");
+        return super.execute();
     }
 
 }

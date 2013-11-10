@@ -21,6 +21,7 @@ public class Deposit extends Action<Runecrafter> {
 
     @Override
     public boolean execute() {
+        script.setStatus("Depositing items.");
         return ctx.bank.deposit(script.altar().getRuneId(), Bank.Amount.ALL);
     }
 

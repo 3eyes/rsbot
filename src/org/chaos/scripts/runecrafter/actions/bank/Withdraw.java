@@ -22,6 +22,7 @@ public class Withdraw extends Action<Runecrafter> {
 
     @Override
     public boolean execute() {
+        script.setStatus("Withdrawing items.");
         final Rune rune = script.altar().getRune();
         return ctx.bank.withdraw(rune.getPureEssenceId(), Bank.Amount.ALL)
                 || ctx.bank.withdraw(rune.getEssenceId(), Bank.Amount.ALL);

@@ -12,12 +12,19 @@ import org.powerbot.script.wrappers.GameObject;
 public class Enter extends Interact<Runecrafter, GameObject, BasicNamedQuery<GameObject>> {
 
     public Enter(Runecrafter script) {
-        super(script, script.getContext().objects, "TODO:", script.altar().getRuinsId());
+        super(script, script.getContext().objects, "Enter", script.altar().getRuinsId());
     }
 
     @Override
     public boolean call() {
-        return false;
+        final GameObject ruins = script.methods().getRuins();
+        return script.methods().canCraft() && ruins.isValid();
+    }
+
+    @Override
+    public boolean execute() {
+        script.setStatus("Entering ruins.");
+        return super.execute();
     }
 
 }
