@@ -29,7 +29,7 @@ public class MineOre extends Task {
      * All of these things together create a Java "constant".
      * By convention constants have fully capitalized names.
      */
-    private static final int ORE_ID = -1;
+    private static final int ORE_ID = -1; //TODO: add copper ore ID
 
     public MineOre(MethodContext ctx) {
         super(ctx);
