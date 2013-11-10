@@ -18,7 +18,7 @@ public class MineOre extends Task {
      * This is the ObjectID of the ore that we
      * wish to mine, it can be found through debugging
      * with the RSBot client. Currently it only
-     * contains the ID for copper ore at Varrock East mine.
+     * contains the IDs for tin ore at Varrock West mine.
      *
      * The reason this is a "private static final" is:
      *
@@ -29,7 +29,7 @@ public class MineOre extends Task {
      * All of these things together create a Java "constant".
      * By convention constants have fully capitalized names.
      */
-    private static final int ORE_ID = -1; //TODO: add copper ore ID
+    private static final int[] ORE_IDS = { 11957, 11958, 11959 };
 
     public MineOre(MethodContext ctx) {
         super(ctx);
@@ -92,7 +92,7 @@ public class MineOre extends Task {
                  * but for now just try to understand what
                  * you can from it.
                  */
-                && !ctx.objects.select().id(ORE_ID).isEmpty();
+                && !ctx.objects.select().id(ORE_IDS).isEmpty();
     }
 
     /**
