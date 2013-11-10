@@ -54,6 +54,7 @@ public class Miner extends PollingScript {
      *
      * <code>
      *     public class SomeClass {
+     *
      *         private final int time = System.currentTimeMillis();
      *
      *         public SomeClass() {
@@ -80,6 +81,11 @@ public class Miner extends PollingScript {
      */
     @Override
     public void start() {
+        /*
+         * Here we add the MineOre task and the DropOre task
+         * to the TaskList. Expect your script to surpass
+         * the 10+ tasks size margin in the future.
+         */
         taskList.add(new MineOre(getContext()));
         taskList.add(new DropOre(getContext()));
     }
