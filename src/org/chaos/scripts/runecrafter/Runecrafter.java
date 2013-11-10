@@ -46,7 +46,6 @@ public class Runecrafter extends Script<Runecrafter> implements MessageListener 
             }
         }
         altar = gui.getAltar();
-        log.info(altar.toString());
         submit(
             new ToBank(this),
             new BankerSet(this),
