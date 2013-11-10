@@ -1,6 +1,7 @@
 package org.chaos.task;
 
 import org.powerbot.script.methods.MethodContext;
+import org.powerbot.script.wrappers.Item;
 
 /**
  * @author chaos_
@@ -12,14 +13,21 @@ public class DropOre extends Task {
         super(ctx);
     }
 
-    @Override
-    public boolean activate() {
-        return false;
+    private boolean invFull() {
+        return ctx.backpack.select().count() == 28;
     }
 
     @Override
-    public boolean execute() {
-        return false;
+    public boolean activate() {
+        return invFull();
+    }
+
+    @Override
+    public void execute() {
+        for (Item i : ctx.backpack) {
+            i.interact("Drop");
+            sleep(300, 500);
+        }
     }
 
 }

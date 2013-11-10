@@ -3,6 +3,7 @@ package org.chaos;
 import org.chaos.task.DropOre;
 import org.chaos.task.MineOre;
 import org.chaos.task.Task;
+import org.powerbot.script.Manifest;
 import org.powerbot.script.PollingScript;
 
 import java.util.ArrayList;
@@ -18,6 +19,12 @@ import java.util.List;
  * the manual. All information regarding your script should
  * be centralized here, or a pointer to it (eg. in another class).
  */
+@Manifest(
+    authors = "_chaos",
+    name = "PowerMiner",
+    description = "PowerMiner tutorial script.",
+    version = 1.0
+)
 public class Miner extends PollingScript {
 
     /**
