@@ -1,8 +1,6 @@
 package org.chaos;
 
-import org.chaos.task.DropOre;
-import org.chaos.task.MineOre;
-import org.chaos.task.Task;
+import org.chaos.task.*;
 import org.powerbot.script.Manifest;
 import org.powerbot.script.PollingScript;
 
@@ -18,14 +16,34 @@ import java.util.List;
  * of time. Think of your script as a machine, and this being
  * the manual. All information regarding your script should
  * be centralized here, or a pointer to it (eg. in another class).
+ *
+ * ~========== Change Log ==========~
+ * |    Version: 1.0
+ * |        > Basic mining script with power-dropping
+ * |    Version: 1.1
+ * |        > Added banking
+ * |
+ * |
+ * |
+ * |
  */
 @Manifest(
     authors = "_chaos",
     name = "PowerMiner",
     description = "PowerMiner tutorial script.",
-    version = 1.0
+    version = 1.1
 )
 public class Miner extends PollingScript {
+
+    /**
+     * This constant specifies whether we should bank or not.
+     * Normally this would be dynamically set through the GUI of
+     * your script, but for tutorial purposes we still statically
+     * assign a value to it.
+     *
+     * @since 1.1
+     */
+    private static final boolean BANK = true;
 
     /**
      * This list holds the tasks that the script must execute. Think
@@ -85,16 +103,35 @@ public class Miner extends PollingScript {
      * It is important to understand this so you don't run into NullPointerException's
      * where you try to access something before it has been initialized. It is advisable
      * to add your Tasks to the TaskList here.
+     *
+     * @since 1.1   Changed the Task constructor from - Task(MethodContext ctx)
+     *              to - Task(Miner script); this change was made to accommodate
+     *              banking variables located in the Miner class. Specifically:
+     *              "private static final boolean BANK = true;"
      */
     @Override
     public void start() {
         /*
-         * Here we add the MineOre task and the DropOre task
-         * to the TaskList. Expect your script to surpass
-         * the 10+ tasks size margin in the future.
+         * Here we add the MineOre task to the TaskList
+         * Expect your script to surpass the 10+ tasks
+         * size margin in the future.
          */
-        taskList.add(new MineOre(getContext()));
-        taskList.add(new DropOre(getContext()));
+        taskList.add(new MineOre(this));
+        /*
+         * If the banking variable [BANK] is set to true
+         * add the nodes ToBank() and ToSpot() to the TaskList
+         * to support banking. Else we instruct the script
+         * to power-drop ore  by adding the DropOre() class
+         * to the TaskList.
+         *
+         * @since 1.1
+         */
+        if (BANK) {
+            taskList.add(new ToBank(this));
+            taskList.add(new ToMine(this));
+        } else {
+            taskList.add(new DropOre(this));
+        }
     }
 
     /**

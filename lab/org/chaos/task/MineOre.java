@@ -1,6 +1,6 @@
 package org.chaos.task;
 
-import org.powerbot.script.methods.MethodContext;
+import org.chaos.Miner;
 import org.powerbot.script.wrappers.GameObject;
 
 /**
@@ -31,8 +31,28 @@ public class MineOre extends Task {
      */
     private static final int[] ORE_IDS = { 11957, 11958, 11959 };
 
-    public MineOre(MethodContext ctx) {
-        super(ctx);
+    /**
+     * In the constructor of MineOre is the Mining script,
+     * with a variable name of "script" for ease of reading.
+     * From the script we extract the MethodContext so that the
+     * requirement can be fulfilled when extending MethodProvider.
+     *
+     * Through the MethodContext we can access useful things
+     * such as the Objects of the game, or the Npcs of the game.
+     * The method context is basically the most important thing
+     * when interacting directly with the clients code. All data
+     * that you need directly from the client can be found here.
+     *
+     * @since 1.1   Changed the Task constructor from - Task(MethodContext ctx)
+     *              to - Task(Miner script); this change was made to accommodate
+     *              future expansion and configuration located in the Miner class.
+     *
+     * @param script    The MethodContext required when extending "MethodProvider"
+     *                  is passed down from the Script when you initialize and put
+     *                  the Tasks in the TaskList.
+     */
+    public MineOre(Miner script) {
+        super(script);
     }
 
     /**
@@ -86,8 +106,8 @@ public class MineOre extends Task {
         return hasSpace() && !isMining()
                 /*
                  * The query is first cached here by using
-                 * select() on all objects with the id of
-                 * oreId - which is specified at the top of
+                 * select() on all objects with the ids in
+                 * - ORE_IDS - which is specified at the top of
                  * of this class. Queries are an advanced topic
                  * but for now just try to understand what
                  * you can from it.

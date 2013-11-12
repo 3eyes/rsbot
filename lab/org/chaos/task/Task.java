@@ -1,6 +1,6 @@
 package org.chaos.task;
 
-import org.powerbot.script.methods.MethodContext;
+import org.chaos.Miner;
 import org.powerbot.script.methods.MethodProvider;
 
 /**
@@ -61,26 +61,27 @@ import org.powerbot.script.methods.MethodProvider;
 public abstract class Task extends MethodProvider {
 
     /**
-     * In the constructor of Task is the MethodContext,
-     * through the MethodContext we can access useful things
+     * In the constructor of Task is the Mining script,
+     * with a variable name of "script" for ease of reading.
+     * From the script we extract the MethodContext so that the
+     * requirement can be fulfilled when extending MethodProvider.
+     *
+     * Through the MethodContext we can access useful things
      * such as the Objects of the game, or the Npcs of the game.
      * The method context is basically the most important thing
      * when interacting directly with the clients code. All data
      * that you need directly from the client can be found here.
      *
-     * @param ctx   The MethodContext is passed down from the Script
-     *              when you initialize and put the Tasks in the TaskList.
-     *              Specifically here:
+     * @since 1.1   Changed the Task constructor from - Task(MethodContext ctx)
+     *              to - Task(Miner script); this change was made to accommodate
+     *              future expansion and configuration located in the Miner class.
      *
-     *              <code>
-     *
-     *                  taskList.add(new MineOre(getContext()));
-     *                  taskList.add(new DropOre(getContext()));
-     *
-     *              </code>
+     * @param script    The MethodContext required when extending "MethodProvider"
+     *                  is passed down from the Script when you initialize and put
+     *                  the Tasks in the TaskList.
      */
-    public Task(MethodContext ctx) {
-        super(ctx);
+    public Task(Miner script) {
+        super(script.getContext());
     }
 
     /**
