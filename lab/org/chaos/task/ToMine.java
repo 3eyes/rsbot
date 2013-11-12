@@ -47,7 +47,7 @@ public class ToMine extends Task {
 
     private boolean atMine() {
         final Tile endTile = TO_MINE[TO_MINE.length - 1];
-        return ctx.players.local().getLocation().distanceTo(endTile) > 5;
+        return ctx.players.local().getLocation().distanceTo(endTile) < 5;
     }
 
     @Override
