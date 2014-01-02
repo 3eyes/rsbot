@@ -11,21 +11,21 @@ import org.powerbot.script.wrappers.GameObject;
  */
 public class Craft extends Interact<Runecrafter, GameObject, BasicNamedQuery<GameObject>> {
 
-    public Craft(Runecrafter script) {
-        super(script, script.getContext().objects, "Craft-rune", script.altar().getAltarId());
-    }
+        public Craft(Runecrafter script) {
+                super(script, script.getCtx().objects, "Craft-rune", script.altar().getAltarId());
+        }
 
-    @Override
-    public boolean call() {
-        final GameObject altar = script.methods().getAltar();
-        return script.methods().canCraft() && altar.isValid();
-    }
+        @Override
+        public boolean call() {
+                final GameObject altar = script.methods().getAltar();
+                return script.methods().canCraft() && altar.isValid();
+        }
 
-    @Override
-    public boolean execute() {
-        script.setStatus("Crafting runes.");
-        return super.execute();
-    }
+        @Override
+        public boolean execute() {
+                script.setStatus("Crafting runes.");
+                return super.execute();
+        }
 
 }
 

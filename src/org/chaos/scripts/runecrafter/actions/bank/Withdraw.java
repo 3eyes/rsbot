@@ -11,21 +11,21 @@ import org.powerbot.script.methods.Bank;
  */
 public class Withdraw extends Action<Runecrafter> {
 
-    public Withdraw(Runecrafter script) {
-        super(script);
-    }
+        public Withdraw(Runecrafter script) {
+                super(script);
+        }
 
-    @Override
-    public boolean call() {
-        return ctx.bank.isOpen() && !script.methods().canCraft();
-    }
+        @Override
+        public boolean call() {
+                return ctx.bank.isOpen() && !script.methods().canCraft();
+        }
 
-    @Override
-    public boolean execute() {
-        script.setStatus("Withdrawing items.");
-        final Rune rune = script.altar().getRune();
-        return ctx.bank.withdraw(rune.getPureEssenceId(), Bank.Amount.ALL)
-                || ctx.bank.withdraw(rune.getEssenceId(), Bank.Amount.ALL);
-    }
+        @Override
+        public boolean execute() {
+                script.setStatus("Withdrawing items.");
+                final Rune rune = script.altar().getRune();
+                return ctx.bank.withdraw(rune.getPureEssenceId(), Bank.Amount.ALL)
+                           || ctx.bank.withdraw(rune.getEssenceId(), Bank.Amount.ALL);
+        }
 
 }

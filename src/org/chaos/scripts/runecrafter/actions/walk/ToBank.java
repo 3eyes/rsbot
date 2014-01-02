@@ -10,24 +10,24 @@ import org.powerbot.script.wrappers.GameObject;
  */
 public class ToBank extends Traverse<Runecrafter> {
 
-    public ToBank(Runecrafter script) {
-        super(script, script.altar().getPath(), true);
-    }
-
-    @Override
-    public boolean call() {
-        final GameObject altar = script.methods().getAltar();
-        if (altar == null) {
-            return false;
+        public ToBank(Runecrafter script) {
+                super(script, script.altar().getPath(), true);
         }
-        return !script.methods().canCraft() && !altar.isValid()
-                && !ctx.bank.isOnScreen();
-    }
 
-    @Override
-    public boolean execute() {
-        script.setStatus("Walking to bank.");
-        return super.execute();
-    }
+        @Override
+        public boolean call() {
+                final GameObject altar = script.methods().getAltar();
+                if (altar == null) {
+                        return false;
+                }
+                return !script.methods().canCraft() && !altar.isValid()
+                           && !ctx.bank.isOnScreen();
+        }
+
+        @Override
+        public boolean execute() {
+                script.setStatus("Walking to bank.");
+                return super.execute();
+        }
 
 }

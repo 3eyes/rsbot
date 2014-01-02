@@ -10,21 +10,21 @@ import org.powerbot.script.wrappers.GameObject;
  */
 public class CrafterSet extends ActionSet<Runecrafter> {
 
-    public CrafterSet(Runecrafter script) {
-        super(script);
-        submit(
-            new Enter(script),
-            new Craft(script),
-            new Exit(script)
-        );
-    }
+        public CrafterSet(Runecrafter script) {
+                super(script);
+                submit(
+                          new Enter(script),
+                          new Craft(script),
+                          new Exit(script)
+                );
+        }
 
-    @Override
-    public boolean call() {
-        final GameObject ruins = script.methods().getRuins();
-        final GameObject altar = script.methods().getAltar();
-        return script.methods().canCraft() && (ruins.isOnScreen() || altar.isOnScreen())
-            || !script.methods().canCraft() && altar.isOnScreen();
-    }
+        @Override
+        public boolean call() {
+                final GameObject ruins = script.methods().getRuins();
+                final GameObject altar = script.methods().getAltar();
+                return script.methods().canCraft() && (ruins.isOnScreen() || altar.isOnScreen())
+                           || !script.methods().canCraft() && altar.isOnScreen();
+        }
 
 }

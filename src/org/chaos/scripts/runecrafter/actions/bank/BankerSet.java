@@ -9,20 +9,20 @@ import org.chaos.scripts.runecrafter.Runecrafter;
  */
 public class BankerSet extends ActionSet<Runecrafter> {
 
-    public BankerSet(Runecrafter script) {
-        super(script);
-        submit(
-            new Open(script),
-            new Deposit(script),
-            new Withdraw(script),
-            new Close(script)
-        );
-    }
+        public BankerSet(Runecrafter script) {
+                super(script);
+                submit(
+                          new Open(script),
+                          new Deposit(script),
+                          new Withdraw(script),
+                          new Close(script)
+                );
+        }
 
-    @Override
-    public boolean call() {
-        return ctx.bank.isOnScreen() && !script.methods().canCraft()
-                || ctx.bank.isOpen();
-    }
+        @Override
+        public boolean call() {
+                return ctx.bank.isOnScreen() && !script.methods().canCraft()
+                           || ctx.bank.isOpen();
+        }
 
 }

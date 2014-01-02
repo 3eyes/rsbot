@@ -9,20 +9,20 @@ import org.chaos.scripts.runecrafter.Runecrafter;
  */
 public class Close extends Action<Runecrafter> {
 
-    public Close(Runecrafter script) {
-        super(script);
-    }
+        public Close(Runecrafter script) {
+                super(script);
+        }
 
-    @Override
-    public boolean call() {
-        return ctx.bank.isOpen() && script.methods().canCraft()
-                && !script.methods().hasRunes();
-    }
+        @Override
+        public boolean call() {
+                return ctx.bank.isOpen() && script.methods().canCraft()
+                           && !script.methods().hasRunes();
+        }
 
-    @Override
-    public boolean execute() {
-        script.setStatus("Closing bank.");
-        return ctx.bank.close();
-    }
+        @Override
+        public boolean execute() {
+                script.setStatus("Closing bank.");
+                return ctx.bank.close();
+        }
 
 }

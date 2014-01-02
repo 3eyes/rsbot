@@ -8,16 +8,16 @@ import org.chaos.core.script.Script;
  * @since 1.0 <11:53 PM - 08/11/13>
  */
 public class InventoryMonitor<T extends Script<T>> extends ScriptJob<T> {
-    public InventoryMonitor(T script) {
-        super(script);
-    }
+        public InventoryMonitor(T script) {
+                super(script);
+        }
 
-    @Override
-    public void run() {
-    }
+        @Override
+        public void run() {
+        }
 
-    @Override
-    public boolean condition() {
-        return false;
-    }
+        @Override
+        public boolean condition() {
+                return false;
+        }
 }

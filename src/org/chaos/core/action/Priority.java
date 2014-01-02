@@ -8,18 +8,18 @@ import java.util.concurrent.atomic.AtomicInteger;
  */
 public enum Priority {
 
-    LOW(1),
-    MED(2),
-    HIGH(3);
+        LOW(1),
+        MED(2),
+        HIGH(3);
 
-    private final AtomicInteger priority;
+        private final AtomicInteger priority;
 
-    private Priority(int priority) {
-        this.priority = new AtomicInteger(priority);
-    }
+        private Priority(int priority) {
+                this.priority = new AtomicInteger(priority);
+        }
 
-    public final int get() {
-        return priority.get();
-    }
+        public final int get() {
+                return priority.get();
+        }
 
 }

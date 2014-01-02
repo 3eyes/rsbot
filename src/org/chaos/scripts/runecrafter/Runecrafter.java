@@ -17,66 +17,66 @@ import org.powerbot.script.Manifest;
  * @since 1.0 <10:48 PM - 08/11/13>
  */
 @Manifest(
-    authors = "_chaos",
-    name = "E3Runecrafter",
-    description = "AIO F2P Runecrafter",
-    version = 0.1
+             authors = "_chaos",
+             name = "E3Runecrafter",
+             description = "AIO F2P Runecrafter",
+             version = 0.1
 )
 public class Runecrafter extends Script<Runecrafter> implements MessageListener {
 
-    private Methods methods;
-    private Gui gui;
-    private Altar altar;
+        private Methods methods;
+        private Gui gui;
+        private Altar altar;
 
-    private int essence = 0, runes = 0, trips = 0;
+        private int essence = 0, runes = 0, trips = 0;
 
-    public Runecrafter() {
-        super();
-        methods = new Methods(this);
-    }
-
-    @Override
-    public void start() {
-        gui = new Gui();
-        while (!gui.start()) {
-            try {
-                Thread.sleep(120);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+        public Runecrafter() {
+                super();
+                methods = new Methods(this);
         }
-        altar = gui.getAltar();
-        submit(
-            new ToBank(this),
-            new BankerSet(this),
-            new ToSpot(this),
-            new CrafterSet(this)
-        );
-        reactor.exec().submit(new GuiJob(this, gui));
-    }
 
-    @Override
-    public void messaged(MessageEvent e) {
-        String s = e.getMessage();
-        if (s.contains("powerful force take")) {
-            essence += ctx.backpack.select().id(altar.getRune().getEssenceIds()).count();
-        } else if (s.contains("step through the")) {
-            int count = ctx.backpack.select().id(altar.getRuneId()).poll().getStackSize();
-            runes += count;
-            trips++;
+        @Override
+        public void start() {
+                gui = new Gui();
+                while (!gui.start()) {
+                        try {
+                                Thread.sleep(120);
+                        } catch (InterruptedException e) {
+                                e.printStackTrace();
+                        }
+                }
+                altar = gui.getAltar();
+                submit(
+                          new ToBank(this),
+                          new BankerSet(this),
+                          new ToSpot(this),
+                          new CrafterSet(this)
+                );
+                reactor.exec().submit(new GuiJob(this, gui));
         }
-    }
 
-    public Methods methods() {
-        return methods;
-    }
+        @Override
+        public void messaged(MessageEvent e) {
+                String s = e.getMessage();
+                if (s.contains("powerful force take")) {
+                        essence += ctx.backpack.select().id(altar.getRune().getEssenceIds()).count();
+                } else if (s.contains("step through the")) {
+                        int count = ctx.backpack.select().id(altar.getRuneId()).poll().getStackSize();
+                        runes += count;
+                        trips++;
+                }
+        }
 
-    public Altar altar() {
-        return altar;
-    }
+        public Methods methods() {
+                return methods;
+        }
 
-    public int[] getStats() {
-        return new int[] {essence, runes, trips};
-    }
+        public Altar altar() {
+                return altar;
+        }
+
+        public int[] getStats() {
+                return new int[]{essence, runes, trips};
+        }
 
 }

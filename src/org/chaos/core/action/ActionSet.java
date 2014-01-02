@@ -8,16 +8,16 @@ import org.chaos.core.script.Script;
  */
 public abstract class ActionSet<T extends Script<T>> extends Action<T> {
 
-    public ActionSet(T script) {
-        super(script);
-    }
+        public ActionSet(T script) {
+                super(script);
+        }
 
-    public final int delay() {
-        return 30;
-    }
+        public final int delay() {
+                return 30;
+        }
 
-    public final boolean execute() {
-        return true;
-    }
+        public final boolean execute() {
+                return true;
+        }
 
 }

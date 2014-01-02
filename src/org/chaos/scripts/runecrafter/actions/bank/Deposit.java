@@ -10,19 +10,19 @@ import org.powerbot.script.methods.Bank;
  */
 public class Deposit extends Action<Runecrafter> {
 
-    public Deposit(Runecrafter script) {
-        super(script);
-    }
+        public Deposit(Runecrafter script) {
+                super(script);
+        }
 
-    @Override
-    public boolean call() {
-        return ctx.bank.isOpen() && script.methods().hasRunes();
-    }
+        @Override
+        public boolean call() {
+                return ctx.bank.isOpen() && script.methods().hasRunes();
+        }
 
-    @Override
-    public boolean execute() {
-        script.setStatus("Depositing items.");
-        return ctx.bank.deposit(script.altar().getRuneId(), Bank.Amount.ALL);
-    }
+        @Override
+        public boolean execute() {
+                script.setStatus("Depositing items.");
+                return ctx.bank.deposit(script.altar().getRuneId(), Bank.Amount.ALL);
+        }
 
 }

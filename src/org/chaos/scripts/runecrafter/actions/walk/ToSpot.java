@@ -10,22 +10,22 @@ import org.powerbot.script.wrappers.GameObject;
  */
 public class ToSpot extends Traverse<Runecrafter> {
 
-    public ToSpot(Runecrafter script) {
-        super(script, script.altar().getPath());
-    }
+        public ToSpot(Runecrafter script) {
+                super(script, script.altar().getPath());
+        }
 
-    @Override
-    public boolean call() {
-        final GameObject ruins = script.methods().getRuins();
-        final GameObject portal = script.methods().getPortal();
-        return script.methods().canCraft() && !ruins.isOnScreen()
-                && !portal.isValid() && !script.methods().hasRunes();
-    }
+        @Override
+        public boolean call() {
+                final GameObject ruins = script.methods().getRuins();
+                final GameObject portal = script.methods().getPortal();
+                return script.methods().canCraft() && !ruins.isOnScreen()
+                           && !portal.isValid() && !script.methods().hasRunes();
+        }
 
-    @Override
-    public boolean execute() {
-        script.setStatus("Walking to altar.");
-        return super.execute();
-    }
+        @Override
+        public boolean execute() {
+                script.setStatus("Walking to altar.");
+                return super.execute();
+        }
 
 }

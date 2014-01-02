@@ -17,70 +17,70 @@ import java.util.logging.Logger;
  */
 public class Reactor implements Runnable {
 
-    private final ExecutorService exec;
+        private final ExecutorService exec;
 
-    private final Deque<Job> deque;
+        private final Deque<Job> deque;
 
-    private final Deque<Future<?>> futures;
+        private final Deque<Future<?>> futures;
 
-    private final Logger log;
+        private final Logger log;
 
-    public Reactor(Script script) {
-        exec = Executors.newCachedThreadPool();
-        deque = new LinkedBlockingDeque<Job>();
-        futures = new LinkedList<Future<?>>();
-        log = script.log;
-    }
-
-    public void start() {
-        Executors.newSingleThreadExecutor().submit(this);
-    }
-
-    @Override
-    public void run() {
-        for (;;) {
-            try {
-                execute();
-
-                Thread.sleep(300);
-            } catch (Exception e) {
-                log.log(Level.SEVERE, "Reactor halted by exception", e);
-            }
+        public Reactor(Script script) {
+                exec = Executors.newCachedThreadPool();
+                deque = new LinkedBlockingDeque<Job>();
+                futures = new LinkedList<Future<?>>();
+                log = script.log;
         }
-    }
 
-    private void execute() throws Exception {
-        for (Job j : deque) {
-            if (j instanceof ScriptJob) {
-                if (((ScriptJob)j).condition()) {
-                    Future<?> f = exec.submit(j);
-                    futures.add(f);
+        public void start() {
+                Executors.newSingleThreadExecutor().submit(this);
+        }
+
+        @Override
+        public void run() {
+                for (;;) {
+                        try {
+                                execute();
+
+                                Thread.sleep(300);
+                        } catch (Exception e) {
+                                log.log(Level.SEVERE, "Reactor halted by exception", e);
+                        }
                 }
-            } else {
-                Future<?> f = exec.submit(j);
-                futures.add(f);
-            }
         }
-        /*
-         * Although polling through futures
-         * is unnecessary, to block the thread
-         * while async executions are taking place
-         * this is required.
-         */
-        for (Future<?> f : futures) {
-            Object o = f.get();
-            if (o == null) {
-                //successful execution
-            }
+
+        private void execute() throws Exception {
+                for (Job j : deque) {
+                        if (j instanceof ScriptJob) {
+                                if (((ScriptJob) j).condition()) {
+                                        Future<?> f = exec.submit(j);
+                                        futures.add(f);
+                                }
+                        } else {
+                                Future<?> f = exec.submit(j);
+                                futures.add(f);
+                        }
+                }
+                /*
+                 * Although polling through futures
+                 * is unnecessary, to block the thread
+                 * while async executions are taking place
+                 * this is required.
+                 */
+                for (Future<?> f : futures) {
+                        Object o = f.get();
+                        if (o == null) {
+                                //successful execution
+                        }
+                }
         }
-    }
 
-    public ExecutorService exec() {
-        return exec;
-    }
+        public ExecutorService exec() {
+                return exec;
+        }
 
-    public boolean submit(Job... jobs) {
-        return Collections.addAll(deque, jobs);
-    }
+        public boolean submit(Job... jobs) {
+                return Collections.addAll(deque, jobs);
+        }
 
 }

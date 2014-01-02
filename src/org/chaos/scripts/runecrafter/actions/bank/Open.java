@@ -9,23 +9,23 @@ import org.chaos.scripts.runecrafter.Runecrafter;
  */
 public class Open extends Action<Runecrafter> {
 
-    public Open(Runecrafter script) {
-        super(script);
-    }
+        public Open(Runecrafter script) {
+                super(script);
+        }
 
-    @Override
-    public boolean call() {
-        return !ctx.bank.isOpen() && !script.methods().canCraft();
-    }
+        @Override
+        public boolean call() {
+                return !ctx.bank.isOpen() && !script.methods().canCraft();
+        }
 
-    @Override
-    public boolean execute() {
-        script.setStatus("Opening bank.");
-        return ctx.bank.open();
-    }
+        @Override
+        public boolean execute() {
+                script.setStatus("Opening bank.");
+                return ctx.bank.open();
+        }
 
-    public int delay() {
-        return 600;
-    }
+        public int delay() {
+                return 600;
+        }
 
 }
